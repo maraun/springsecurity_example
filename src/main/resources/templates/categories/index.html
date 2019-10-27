@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/main.html">
+<div layout:fragment="content">
+
+    <div class="jumbotron">
+        <h1>
+            Categories
+        </h1>
+    </div>
+
+    <div class="card mb-3 bg-secondary">
+        <div class="card-body">
+            <form action="/categories" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" placeholder="Enter name:" name="name">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-success btn-block" type="submit" value="SAVE">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Items
+                </th>
+                <th>
+                    Action
+                </th>
+                </thead>
+
+                <tbody>
+                <tr th:each="category : ${categories}">
+                    <td th:text="${category.getName()}"/>
+                    <td>
+                        <a th:href="@{|/items/categories/${category.id}|}">items</a>
+                    </td>
+                    <td>
+                        <form th:action="@{|/categories/delete/${category.id}|}" method="post">
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</html>
